@@ -1,40 +1,40 @@
 import sqlite3
 import os
 
-## to handle phone numbers
+# handle phone numbers imports
 from phonenumbers import parse
 from phonenumbers.phonenumberutil import region_code_for_number, NumberParseException
 import pycountry
 
 
 class PiplService:
-    def __init__(self, db_option="local_sql", local_db_path=""):
+    def __init__(self, db_option="local_sql", database_path=""):
         if db_option == "local_sql":
-            self.db = MySqlDatabase(database_path=local_db_path)
+            self.db = MySqlDatabase(database_path=database_path)
             self.db_type = "local_sql"
-            self.db_path = local_db_path
-            if local_db_path != "":
-                full_path = os.path.join(os.path, local_db_path)
-                if not os.path.exist(full_path):
+            self.db_path = database_path
+            if database_path != "":
+                full_path = os.path.join(database_path)
+                if not os.path.exists(full_path):
                     os.mkdir(full_path)
 
     def advanced_request(self, data):
         pass
 
     def simple_request(self, data):
-        ## sort data
+        # sort data
         email, phone = self.get_sorted_args(data)
         request = {"email": email, "phone": phone}
 
-        ##save request log
+        # save request log
         if self.db_type == "local_sql":
             self.db.save_request_simple(request)
 
-        ## get info
+        # get info
         req_country = self.get_country_by_phone(phone)
         req_provider = self.get_mail_provider(email)
 
-        ##save response log
+        # save response log
         if self.db_type == "local_sql":
             self.db.save_response_simple(request)
 
@@ -73,7 +73,8 @@ class MySqlDatabase:
     def __init__(self, database_path=""):
         self.create_db_table(database_path)
 
-    def connect_to_db(self, db_path):
+    @staticmethod
+    def connect_to_db(db_path=""):
         conn = sqlite3.connect(db_path+'database.db')
         return conn
 
