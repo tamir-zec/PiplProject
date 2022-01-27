@@ -8,10 +8,10 @@ import pycountry
 
 
 class PiplService:
-    def __init__(self, db_option="local_sql", database_path=""):
-        if db_option == "local_sql":
+    def __init__(self, db_type="local sql", database_path=""):
+        if db_type == "local sql":
             self.db = MySqlDatabase(database_path=database_path)
-            self.db_type = "local_sql"
+            self.db_type = "local sql"
             self.db_path = database_path
             if database_path != "":
                 full_path = os.path.join(database_path)
@@ -27,7 +27,7 @@ class PiplService:
         request = {"email": email, "phone": phone}
 
         # save request log
-        if self.db_type == "local_sql":
+        if self.db_type == "local sql":
             self.db.save_request_simple(request)
 
         # get info
@@ -35,13 +35,13 @@ class PiplService:
         req_provider = self.get_mail_provider(email)
 
         # save response log
-        if self.db_type == "local_sql":
+        if self.db_type == "local sql":
             self.db.save_response_simple(request)
 
         return 0
 
     def get_history(self):
-        if self.db_type == "local_sql":
+        if self.db_type == "local sql":
             return self.db.get_all_requests()
 
     @staticmethod
@@ -95,10 +95,10 @@ class MySqlDatabase:
 
             conn.commit()
             print("Local Database created successfully")
+            conn.close()
         except:
             print("Could not connect to Database properly")
-        finally:
-            conn.close()
+
 
     def save_request_simple(self, request):
         try:
