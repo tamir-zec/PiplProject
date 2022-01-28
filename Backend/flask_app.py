@@ -12,14 +12,14 @@ def api_get_all_requests():
     return jsonify(app_database.get_history())
 
 
-@app.route('/api/simple_request', methods=['GET'])
-def api_get_simple_request(args):
-    return jsonify(app_database.simple_request(args))
+@app.route('/api/simple_request', methods=['POST'])
+def api_get_simple_request():
+    return jsonify(app_database.simple_request(request.data))
 
 
-@app.route('/api/advanced_request', methods=['GET'])
-def api_get_advanced_request(args):
-    return jsonify(app_database.advanced_request(args))
+@app.route('/api/advanced_request', methods=['POST'])
+def api_get_advanced_request():
+    return jsonify(app_database.advanced_request(request.data))
 
 
 if __name__ == "__main__":
