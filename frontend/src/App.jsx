@@ -1,19 +1,14 @@
-import React from "react";
+import React, {useState} from "react";
 import './App.css';
-import { AdvancedForm } from './advanced_form';
-import { SimpleForm } from './SimpleForm';
+import {MainForm} from "./MainForm";
 
 function App() {
-    const [isSimpleForm, setIsSimpleForm] = React.useState(undefined);
-    let FormToRender = undefined;
-    if (typeof isSimpleForm === 'boolean') {
-        // FormToRender = isSimpleForm ? SimpleForm : AdvancedForm;
-    }
+    const [simpleForm, setSimpleForm] = useState(false);
     return (
         <div className="App">
-            <button onClick={() => setIsSimpleForm(true)}> Simple Mode </button>
-            <button onClick={() => setIsSimpleForm(false)}> Advanced Mode </button>
-            { FormToRender && <FormToRender /> }
+            <button onClick={() => setSimpleForm(true)}> Simple Mode </button>
+            <button onClick={() => setSimpleForm(false)}> Advanced Mode </button>
+            <MainForm {simpleForm}/>
         </div>
     );
 }

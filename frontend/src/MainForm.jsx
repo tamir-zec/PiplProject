@@ -4,6 +4,7 @@ import parsePhoneNumber from 'libphonenumber-js'
 export const MainForm = ({ isSimpleForm }) => {
     const [inputs, setInputs] = useState([{}]);
     const [responses, setResponses] = useState([]);
+    const [submitEnabled, setSubmitEnabled] = useState(false);
 
     const increase = () => setInputs([...inputs, {}]);
     const decrease = () => {
@@ -22,6 +23,12 @@ export const MainForm = ({ isSimpleForm }) => {
         const newInputs = [...inputs];
         newInputs[index].phone = phone;
         setInputs(newInputs);
+    }
+
+    const validate = () => {
+        let validation = true
+        //for email and phone number check valide email and phone
+        setSubmitEnabled(validation)
     }
 
     const validateEmail = (email) => {
