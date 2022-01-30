@@ -1,5 +1,6 @@
 import sqlite3
 
+
 class MySqlDatabase:
     def __init__(self, database_path="", domains_path="free_domains.txt"):
         if not os.path.exists("database.db"):
