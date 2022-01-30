@@ -5,13 +5,9 @@ export const MainForm = ({ isSimpleForm }) => {
     const [inputs, setInputs] = useState([{}]);
     const [responses, setResponses] = useState([]);
 
-    const increase = () => {
-        if (isSimpleForm) {
-            setInputs([...inputs, {}]);
-        }
-    }
+    const increase = () => setInputs([...inputs, {}]);
     const decrease = () => {
-        if (isSimpleForm && inputs.length > 1) {
+        if (inputs.length > 1) {
             setInputs(inputs.slice(0, -1));
         }
     }
@@ -37,7 +33,7 @@ export const MainForm = ({ isSimpleForm }) => {
         const phoneNumber = parsePhoneNumber(phone)
         if (phoneNumber) {
             return phoneNumber.isValid()
-        };
+        }
     }
 
     return (
@@ -51,8 +47,8 @@ export const MainForm = ({ isSimpleForm }) => {
                         setPhone={(newPhone) => setNewPhone(newPhone, index)} />
                 )}
             </form>
-            { isSimpleForm && <button onClick={handleAdd}> + </button> }
-            { isSimpleForm && <button onClick={handleSubtract}> - </button> }
+            { isSimpleForm && <button onClick={increase}> + </button> }
+            { isSimpleForm && <button onClick={decrease}> - </button> }
         </div>
     )
 }
