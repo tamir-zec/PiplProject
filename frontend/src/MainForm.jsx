@@ -29,7 +29,7 @@ export const MainForm = ({ isSimpleForm }) => {
     }
 
     const validateEmail = (email) => {
-        var re = /\S+@\S+\.\S+/;
+        const re = /\S+@\S+\.\S+/;
         return re.test(email);
     }
 
@@ -38,6 +38,7 @@ export const MainForm = ({ isSimpleForm }) => {
         if (phoneNumber) {
             return phoneNumber.isValid()
         };
+    }
 
     return (
         <div>
