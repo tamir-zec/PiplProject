@@ -1,9 +1,12 @@
 import sqlite3
+import os
 
 
 class MySqlDatabase:
     def __init__(self, database_path="", domains_path="free_domains.txt"):
-        if not os.path.exists("database.db"):
+        if not os.path.exists(database_path):
+            os.mkdir(os.path.join(database_path))
+        if not os.path.exists(os.path.join(database_path, "database.db")):
             self.create_db_table(database_path)
         self.free_domains_dict = self.get_domains_dict(domains_path)
 
@@ -17,7 +20,7 @@ class MySqlDatabase:
 
     @staticmethod
     def connect_to_db(db_path=""):
-        conn = sqlite3.connect(db_path +'database.db')
+        conn = sqlite3.connect(db_path + 'database.db')
         return conn
 
     def create_db_table(self, db_path):
