@@ -32,8 +32,8 @@ class MySqlDatabase:
                 request_type TEXT NOT NULL,
                 email TEXT NOT NULL,
                 phone TEXT NOT NULL,
-                email_provider TEXT NOT NULL,
-                phone_country TEXT NOT NULL
+                emailProvider TEXT NOT NULL,
+                phoneCountry TEXT NOT NULL
             );
 
         ''')
