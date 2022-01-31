@@ -75,7 +75,7 @@ class MySqlDatabase:
     def get_all_requests(self):
         requests = []
         try:
-            conn = self.connect_to_db()
+            conn = self.connect_to_db(self.database_path)
             conn.row_factory = sqlite3.Row
             cur = conn.cursor()
             cur.execute("SELECT * FROM requests")

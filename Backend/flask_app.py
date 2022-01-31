@@ -11,17 +11,17 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.route('/api/all_requests', methods=['GET'])
 def api_get_all_requests():
-    return jsonify(app_database.get_history())
+    return app_database.get_history()
 
 
 @app.route('/api/simple_request', methods=['POST'])
 def api_get_simple_request():
-    return jsonify(app_database.simple_request(json.loads(request.data.decode('utf-8'))))
+    return app_database.simple_request(json.loads(request.data.decode('utf-8')))
 
 
 @app.route('/api/advanced_request', methods=['POST'])
 def api_get_advanced_request():
-    return jsonify(app_database.advanced_request(json.loads(request.data.decode('utf-8'))))
+    return app_database.advanced_request(json.loads(request.data.decode('utf-8')))
 
 
 if __name__ == "__main__":
