@@ -8,9 +8,8 @@ export const MainForm = ({ isSimpleForm }) => {
     const [submitEnabled, setSubmitEnabled] = useState(false);
 
     useEffect(()=>{
-        if(isSimpleForm){
-            setInputs([inputs[0]])
-        }
+            setInputs([{"email":" ","phone":""}])
+            setResponses([])
     } ,[isSimpleForm])
 
     const increase = () => setInputs([...inputs, {"email":" ","phone":""}]);
@@ -54,9 +53,8 @@ export const MainForm = ({ isSimpleForm }) => {
         }).then(res => res.json()).then(handleResponse)
     }
 
-    const handleResponse = (data) => {
-        debugger;
-        setResponses(isSimpleForm? [data.data]: data.data)
+    const handleResponse = (res) => {
+        setResponses(isSimpleForm? [res]: res);
     }
 
 
@@ -91,8 +89,8 @@ export const MainForm = ({ isSimpleForm }) => {
                         key={index}
                         email={email}
                         phone={phone}
-                        emailProvider={index >= responses.length ? " ":responses[index].emailProvider}
-                        phoneCountry={index >= responses.length ? " ":responses[index].phoneCountry}
+                        emailProvider={index >= responses.length ? "": responses[index]["emailProvider"]}
+                        phoneCountry={index >= responses.length ? "": responses[index]["phoneCountry"]}
                         idx={index}
                         applyInput={applyNewInput}
                     />
