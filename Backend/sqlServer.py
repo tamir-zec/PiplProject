@@ -9,6 +9,7 @@ class MySqlDatabase:
         if not os.path.exists(os.path.join(database_path, "database.db")):
             self.create_db_table(database_path)
         self.free_domains_dict = self.get_domains_dict(domains_path)
+        self.database_path = database_path
 
     @staticmethod
     def get_domains_dict(domains_path=""):
@@ -44,7 +45,7 @@ class MySqlDatabase:
 
     def save_request_simple(self, request):
         try:
-            conn = self.connect_to_db()
+            conn = self.connect_to_db(self.database_path)
             cur = conn.cursor()
             cur.execute \
                 ("INSERT INTO requests (request_type, email, phone, emailProvider, phoneCountry) VALUES (?, ?, ?, ?, ?)",

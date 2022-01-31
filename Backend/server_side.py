@@ -23,20 +23,19 @@ class PiplService:
 
     def advanced_request(self, data):
         responses = []
-        for email, phone in json.loads(data)['people_list']:
+        for email, phone in data['people_list']:
             responses.append(self.simple_request({"email": email, "phone": phone}))
         return responses
 
 
 
     def simple_request(self, data):
-        for data_dict in data['people_list']:
-            email, phone = data_dict["email"], data_dict["phone"]
-            request = {"email": email, "phone": phone}
+        email, phone = data["email"], data["phone"]
+        request = {"email": email, "phone": phone}
 
         # save request log
-            if self.db_type == "local sql":
-                self.db.save_request_simple(request)
+        if self.db_type == "local sql":
+            self.db.save_request_simple(request)
 
         # get info
         req_country = self.get_country_by_phone(phone)

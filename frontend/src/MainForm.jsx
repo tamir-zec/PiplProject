@@ -3,7 +3,7 @@ import parsePhoneNumber from 'libphonenumber-js'
 import {SimpleForm} from './SimpleForm'
 
 export const MainForm = ({ isSimpleForm }) => {
-    const [inputs, setInputs] = useState([{}]);
+    const [inputs, setInputs] = useState([{"email":" ","phone":""}]);
     const [responses, setResponses] = useState([]);
     const [submitEnabled, setSubmitEnabled] = useState(false);
 
@@ -13,7 +13,7 @@ export const MainForm = ({ isSimpleForm }) => {
         }
     } ,[isSimpleForm])
 
-    const increase = () => setInputs([...inputs, {}]);
+    const increase = () => setInputs([...inputs, {"email":" ","phone":""}]);
     const decrease = () => {
         if (inputs.length > 1) {
             setInputs(inputs.slice(0, -1));
@@ -76,10 +76,10 @@ export const MainForm = ({ isSimpleForm }) => {
     }
 
     const validatePhone = (phone) => {
-        const phoneNumber = parsePhoneNumber(phone)
-        if (phoneNumber) {
-            return phoneNumber.isValid()
-        }
+        try {
+                const phoneNumber = parsePhoneNumber(phone);
+                return phoneNumber.isValid();
+            } catch{}
     }
 
     return (
@@ -87,6 +87,7 @@ export const MainForm = ({ isSimpleForm }) => {
             <div>
                 {inputs.map(({ email, phone }, index) =>
                     <SimpleForm
+                        key={index}
                         email={email}
                         phone={phone}
                         emailProvider={index >= responses.length ? "":responses[index].emailProvider}
