@@ -70,7 +70,7 @@ class MySqlDatabase:
     def check_domain(self, email: str):
         # get the text after the @
         mail_end = email.partition("@")[2]
-        if self.free_domains_dict[mail_end]:
+        if mail_end in self.free_domains_dict:
             return "Free Mail Provider"
         else:
             return "Not a Free Mail Provider"
