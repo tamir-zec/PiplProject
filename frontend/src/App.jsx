@@ -6,9 +6,9 @@ function App() {
     const [simpleForm, setSimpleForm] = useState(false);
     return (
         <div className="App">
-            <button onClick={() => setSimpleForm(true)}> Simple Mode </button>
-            <button onClick={() => setSimpleForm(false)}> Advanced Mode </button>
-            <MainForm {simpleForm}/>
+            <button disabled={simpleForm} onClick={() => setSimpleForm(true)}> Simple Mode </button>
+            <button disabled={!simpleForm} onClick={() => setSimpleForm(false)}> Advanced Mode </button>
+            <MainForm isSimpleForm={simpleForm}/>
         </div>
     );
 }

@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import parsePhoneNumber from 'libphonenumber-js'
-import {SimpleForm} from 'SimpleForm'
+import {SimpleForm} from './SimpleForm'
 
 export const MainForm = ({ isSimpleForm }) => {
     const [inputs, setInputs] = useState([{}]);
     const [responses, setResponses] = useState([]);
     const [submitEnabled, setSubmitEnabled] = useState(false);
+
+    useEffect(()=>{
+        if(isSimpleForm){
+            setInputs([inputs[0]])
+        }
+    } ,[isSimpleForm])
 
     const increase = () => setInputs([...inputs, {}]);
     const decrease = () => {
@@ -26,10 +32,42 @@ export const MainForm = ({ isSimpleForm }) => {
         setInputs(newInputs);
     }
 
+    const applyNewInput = (e, dataType, index) => {
+        if(dataType === "email") {
+            setNewEmail(e.target.value, index)
+        }
+        if(dataType === "phone"){
+            setNewPhone(e.target.value, index)
+        }
+        validate()
+    }
+
+    const submitForm = () => {
+        let api_url = isSimpleForm ? '/api/simple_request': '/api/advanced_request'
+        let data = isSimpleForm ?  inputs[0]:{ "people_list": inputs}
+        fetch(api_url, {
+            body: JSON.stringify(data),
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).then(handleResponse)
+    }
+
+    const handleResponse = (res) => {
+        setResponses(isSimpleForm? [res.data]: res.data)
+    }
+
+
     const validate = () => {
-        let validation = true
-        //for email and phone number check validate email and phone
-        setSubmitEnabled(validation)
+        let valid = true
+        for(let currInput of inputs){
+            valid = validatePhone(currInput.phone)  && validateEmail(currInput.email)
+            if(!valid){
+                break;
+            }
+        }
+        setSubmitEnabled(valid)
     }
 
     const validateEmail = (email) => {
@@ -46,17 +84,21 @@ export const MainForm = ({ isSimpleForm }) => {
 
     return (
         <div>
-            <form>
+            <div>
                 {inputs.map(({ email, phone }, index) =>
                     <SimpleForm
                         email={email}
                         phone={phone}
-                        setEmail={(newEmail) => setNewEmail(newEmail, index)}
-                        setPhone={(newPhone) => setNewPhone(newPhone, index)} />
+                        emailProvider={index >= responses.length ? "":responses[index].emailProvider}
+                        phoneCountry={index >= responses.length ? "":responses[index].phoneCountry}
+                        idx={index}
+                        applyInput={applyNewInput}
+                    />
                 )}
-            </form>
-            { isSimpleForm && <button onClick={increase}> + </button> }
-            { isSimpleForm && <button onClick={decrease}> - </button> }
+                <button disabled={!submitEnabled} onClick={submitForm}>submit</button>
+            </div>
+            { !isSimpleForm && <button onClick={increase}> + </button> }
+            { !isSimpleForm && <button onClick={decrease}> - </button> }
         </div>
     )
 }
