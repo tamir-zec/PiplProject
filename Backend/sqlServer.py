@@ -56,16 +56,13 @@ class MySqlDatabase:
             "Couldn't connect to DB"
 
     def save_response_simple(self, response):
-        try:
-            conn = self.connect_to_db()
+            conn = self.connect_to_db(self.database_path)
             cur = conn.cursor()
             cur.execute \
                 ("INSERT INTO requests (request_type, email, phone, emailProvider, phoneCountry) VALUES (?, ?, ?, ?, ?)",
-                        ("Response", "", "", response['email_provider'], response['email_provider']))
+                        ("Response", "", "", response['emailProvider'], response['phoneCountry']))
             conn.commit()
-            inserted_request = self.get_request_by_id(cur.lastrowid)
-        except:
-            conn().rollback()
+
 
     def check_domain(self, email: str):
         # get the text after the @
