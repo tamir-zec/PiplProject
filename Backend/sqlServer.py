@@ -47,7 +47,7 @@ class MySqlDatabase:
             conn = self.connect_to_db()
             cur = conn.cursor()
             cur.execute \
-                ("INSERT INTO requests (request_type, email, phone, email_provider, phone_country) VALUES (?, ?, ?, ?, ?)",
+                ("INSERT INTO requests (request_type, email, phone, emailProvider, phoneCountry) VALUES (?, ?, ?, ?, ?)",
                         ("Request", request['email'], request['phone'], "", ""))
             conn.commit()
             conn.close()
@@ -59,7 +59,7 @@ class MySqlDatabase:
             conn = self.connect_to_db()
             cur = conn.cursor()
             cur.execute \
-                ("INSERT INTO requests (request_type, email, phone, email_provider, phone_country) VALUES (?, ?, ?, ?, ?)",
+                ("INSERT INTO requests (request_type, email, phone, emailProvider, phoneCountry) VALUES (?, ?, ?, ?, ?)",
                         ("Response", "", "", response['email_provider'], response['email_provider']))
             conn.commit()
             inserted_request = self.get_request_by_id(cur.lastrowid)
@@ -90,8 +90,8 @@ class MySqlDatabase:
                     "requests_type": i["request_type"],
                     "email": i["email"],
                     "phone": i["phone"],
-                    "email_provider": i["email_provider"],
-                    "phone_country": i["phone_country"]
+                    "emailProvider": i["emailProvider"],
+                    "phoneCountry": i["phoneCountry"]
                 }
                 requests.append(request)
 

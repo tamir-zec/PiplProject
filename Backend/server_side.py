@@ -42,7 +42,7 @@ class PiplService:
         req_country = self.get_country_by_phone(phone)
         req_provider = self.get_mail_provider(email)
 
-        response = {"email_provider": req_provider, "phone_country": req_country}
+        response = {"emailProvider": req_provider, "phoneCountry": req_country}
         # save response log
         if self.db_type == "local sql":
             self.db.save_response_simple(response)
