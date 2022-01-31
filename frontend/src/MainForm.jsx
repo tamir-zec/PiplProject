@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import parsePhoneNumber from 'libphonenumber-js'
+import {SimpleForm} from 'SimpleForm'
 
 export const MainForm = ({ isSimpleForm }) => {
     const [inputs, setInputs] = useState([{}]);
@@ -27,7 +28,7 @@ export const MainForm = ({ isSimpleForm }) => {
 
     const validate = () => {
         let validation = true
-        //for email and phone number check valide email and phone
+        //for email and phone number check validate email and phone
         setSubmitEnabled(validation)
     }
 
