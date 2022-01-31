@@ -51,11 +51,12 @@ export const MainForm = ({ isSimpleForm }) => {
             headers: {
                 'Content-Type': 'application/json',
             }
-        }).then(handleResponse)
+        }).then(res => res.json()).then(handleResponse)
     }
 
-    const handleResponse = (res) => {
-        setResponses(isSimpleForm? [res.data]: res.data)
+    const handleResponse = (data) => {
+        debugger;
+        setResponses(isSimpleForm? [data.data]: data.data)
     }
 
 
@@ -90,8 +91,8 @@ export const MainForm = ({ isSimpleForm }) => {
                         key={index}
                         email={email}
                         phone={phone}
-                        emailProvider={index >= responses.length ? "":responses[index].emailProvider}
-                        phoneCountry={index >= responses.length ? "":responses[index].phoneCountry}
+                        emailProvider={index >= responses.length ? " ":responses[index].emailProvider}
+                        phoneCountry={index >= responses.length ? " ":responses[index].phoneCountry}
                         idx={index}
                         applyInput={applyNewInput}
                     />
