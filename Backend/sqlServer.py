@@ -15,8 +15,8 @@ class MySqlDatabase:
     def get_domains_dict(domains_path=""):
         free_domains_dict = {}
         domains_file = open(domains_path)
-        for domain_name in domains_file:
-            free_domains_dict[domain_name] = True
+        for domain_name in domains_file.readlines():
+            free_domains_dict[domain_name.strip()] = True
         return free_domains_dict
 
     @staticmethod
