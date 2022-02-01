@@ -25,6 +25,6 @@ def api_get_advanced_request():
 
 
 if __name__ == "__main__":
-    app.debug = True
-    app.run(debug=True)
-    # app.run() #run app
+    # app.debug = True
+    # app.run(debug=True)
+    app.run() #run app
