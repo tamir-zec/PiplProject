@@ -54,7 +54,7 @@ export const MainForm = ({ isSimpleForm }) => {
     }
 
     const handleResponse = (res) => {
-        setResponses(isSimpleForm? [res]: res);
+        setResponses(isSimpleForm? [res]: res["responseList"]);
     }
 
 

@@ -23,9 +23,9 @@ class PiplService:
 
     def advanced_request(self, data):
         responses = []
-        for email, phone in data['people_list']:
-            responses.append(self.simple_request({"email": email, "phone": phone}))
-        return responses
+        for person_dict in data['people_list']:
+            responses.append(self.simple_request(person_dict))
+        return {"responseList": responses}
 
 
 
