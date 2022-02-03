@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request
 from flask_cors import CORS
 from server_side import PiplService
 
@@ -27,4 +27,4 @@ def api_get_advanced_request():
 if __name__ == "__main__":
     # app.debug = True
     # app.run(debug=True)
-    app.run() #run app
+    app.run()     # run app
