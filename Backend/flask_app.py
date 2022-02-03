@@ -11,7 +11,7 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.route('/api/all_requests', methods=['GET'])
 def api_get_all_requests():
-    return app_database.get_history()
+    return {"appHistory": app_database.get_history()}
 
 
 @app.route('/api/simple_request', methods=['POST'])
